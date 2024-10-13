@@ -21,17 +21,17 @@ class EasyPinD
 
 		void Init()
 		{
-			Off();
+			HAL_GPIO_WritePin(_port, _pin.Pin, GPIO_PIN_RESET);
 			HAL_GPIO_Init(_port, &_pin);
 			Write(_state);
 			
 			return;
 		}
 		
-		void Mode(GPIO_InitTypeDef pin, GPIO_PinState init = GPIO_PIN_RESET)
+		void Mode(GPIO_InitTypeDef pin, GPIO_PinState state = GPIO_PIN_RESET)
 		{
 			_pin = pin;
-			_state = init;
+			_state = state;
 			Init();
 			
 			return;
