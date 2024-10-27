@@ -24,6 +24,7 @@ class EasyPinD
 		void Write(GPIO_PinState state);
 		GPIO_PinState Read();
 		GPIO_PinState GetState();
+		bool GetEXTIFlag();
 		
 	private:
 		
