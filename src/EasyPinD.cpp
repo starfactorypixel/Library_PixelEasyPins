@@ -61,15 +61,3 @@ GPIO_PinState EasyPinD::GetState()
 {
 	return _state;
 }
-
-bool EasyPinD::GetEXTIFlag()
-{
-	if( __HAL_GPIO_EXTI_GET_FLAG(_pin.Pin) )
-	{
-		__HAL_GPIO_EXTI_CLEAR_FLAG(_pin.Pin);
-		
-		return true;
-	}
-	
-	return false;
-}
