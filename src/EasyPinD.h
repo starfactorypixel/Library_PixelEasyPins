@@ -1,6 +1,12 @@
 #pragma once
 #include <inttypes.h>
-#include "stm32f1xx_hal.h"
+#if defined(STM32F1)
+	#include "stm32f1xx_hal.h"
+#elif defined(STM32H7)
+	#include "stm32h7xx_hal.h"
+#else
+	#error "Unsupported STM32 series."
+#endif
 
 class EasyPinD
 {
