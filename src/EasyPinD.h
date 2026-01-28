@@ -2,10 +2,13 @@
 #include <inttypes.h>
 #if defined(STM32F1)
 	#include "stm32f1xx_hal.h"
+	#define GPIO_PIN_TYPE			uint32_t
 #elif defined(STM32H7)
 	#include "stm32h7xx_hal.h"
+	#define GPIO_PIN_TYPE			uint32_t
 #elif defined(ESP32)
 	#include "driver/gpio.h"
+	#define GPIO_PIN_TYPE			gpio_num_t
 
 	#define GPIO_MODE_INPUT			GPIO_MODE_INPUT
 	#define GPIO_MODE_OUTPUT_PP		GPIO_MODE_OUTPUT
@@ -29,7 +32,7 @@
 	#define GPIO_PinState			uint8_t
 	typedef struct
 	{
-		gpio_num_t Pin;
+		GPIO_PIN_TYPE Pin;
 		gpio_mode_t Mode;
 		uint8_t Pull;
 		uint8_t Speed;
@@ -61,11 +64,11 @@ class EasyPinD
 		typedef struct
 		{
 			GPIO_TypeDef *Port;
-			uint16_t Pin;
+			GPIO_PIN_TYPE Pin;
 		} d_pin_t;
 		
 		// STM32: EasyPinD pin(GPIOA, {GPIO_PIN_0, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_LOW}, GPIO_PIN_SET);
-		// ESP32: EasyPinD pin(0, {GPIO_NUM_20, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_HIGH}, GPIO_PIN_SET);
+		// ESP32: EasyPinD pin(nullptr, {GPIO_NUM_20, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_HIGH}, GPIO_PIN_SET);
 		EasyPinD(GPIO_TypeDef *port, GPIO_InitTypeDef pin, GPIO_PinState init = GPIO_PIN_RESET) : _port(port), _pin(pin), _state(init)
 		{}
 		
